@@ -68,6 +68,7 @@ export default function StreamView({
         }, REFRESH_INTERVAL_MS)
     }, [])
 
+
     useEffect(() => {
       if(!videoPlayerRef.current){
         return
@@ -75,10 +76,15 @@ export default function StreamView({
       const player = YouTubePlayer(videoPlayerRef.current)
       player.loadVideoById(currentVideo?.extractedId)
       player.playVideo()
-      function eventHandler(event: any){
+      async function eventHandler(event: any){
         console.log(event)
         console.log(event.data)
         if(event.data === 0){
+          if(currentVideo){
+            await fetch(`/api/streams/${currentVideo.id}`, {
+              method: "DELETE"
+            })
+          }
           playNext()
         }
       }
