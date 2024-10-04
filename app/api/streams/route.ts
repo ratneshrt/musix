@@ -17,14 +17,14 @@ export async function POST(req: NextRequest){
     try{
         const data = CreateStreamSchema.parse(await req.json())
         const isYt = data.url.match(YT_REGEX)
-        if(!isYt){
+        if(!isYt || !isYt[1]){
             return NextResponse.json({
                 message: "Wrong URL format"
             },{
                 status: 411
             })
         }
-        const extractedId = data.url.split("?v=")[1]
+        const extractedId = isYt[1];
 
         const existingStream = await prismaClient.stream.findFirst({
             where: {
