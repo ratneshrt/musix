@@ -70,6 +70,9 @@ export async function GET(){
                 upvotes: {
                     where: {
                         userId: user.id
+                    },
+                    select: {
+                        userId: true
                     }
                 }
             }

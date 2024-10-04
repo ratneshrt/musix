@@ -137,22 +137,30 @@ export default function StreamView({
         setPreviewVideoId(videoId)
     }
 
-    const handleVote = (id: string, isUpvote: boolean) => {
-        setQueue(queue.map(video => 
-            video.id === id
-            ? {
-                ...video,
-                isUpvote: isUpvote ? video.upvotes + 1 : video.upvotes - 1,
-                haveUpvoted: !video.haveUpVoted
-            } : video
-        ).sort((a,b) => (b.upvotes) - (a.upvotes)))
+    const handleVote = async (id: string, isUpvote: boolean) => {
+        const videoToVote = queue.find(video => video.id === id)
+        if(!videoToVote){
+          return
+        }
+        const updatedVideo = {
+          ...videoToVote,
+          upvotes: isUpvote ? videoToVote.upvotes + 1 : videoToVote.upvotes - 1,
+          haveUpVoted: isUpvote
+        }
 
-        fetch(`/api/streams/${isUpvote ? "upvote" : "downvote"}`,{
-            method: "POST",
-            body: JSON.stringify({
-                streamId: id
-            })
+        const updatedQueue = queue.map(video => 
+          video.id === id ? updatedVideo : video
+        ).sort((a,b) => b.upvotes - a.upvotes)
+
+        setQueue(updatedQueue)
+
+        await fetch(`/api/streams/${isUpvote ? "upvote" : "downvote"}`, {
+          method: "POST",
+          body: JSON.stringify({
+            streamId: id
+          })
         })
+        
     }
 
     const playNext = async () => {
@@ -318,7 +326,7 @@ export default function StreamView({
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => handleVote(video.id, video.haveUpVoted ? false : true)}
+                    onClick={() => handleVote(video.id, !video.haveUpVoted)}
                     className="bg-white text-black hover:bg-white/90 w-8 h-8 p-0"
                   >
                     {video.haveUpVoted ? <ChevronDown className="h-4 w-4" /> : <ChevronUp className="h-4 w-4" />}
