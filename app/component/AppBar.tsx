@@ -9,7 +9,7 @@ export function AppBar(){
     return <div>
         <div className="flex justify-between bg-black">
             <Link className="flex items-center justify-center" href="/">
-            <div className="flex px-4">
+            <div className="flex items-center px-4">
                 <svg
                     viewBox="0 0 24 24"
                     fill="currentColor"
