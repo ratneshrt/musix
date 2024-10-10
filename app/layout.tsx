@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: "Musix: The Night is Yours",
   description: "The night is darkest just before the dawn. And I promise you, the dawn is coming.",
   icons: {
-    icon: '/bat.png'
+    icon: './favicon.ico'
   }
 };
 

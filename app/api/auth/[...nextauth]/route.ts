@@ -10,6 +10,9 @@ const handler = NextAuth({
         })
     ],
     secret: process.env.NEXTAUTH_SECRET ?? "secret",
+    pages:{
+        signIn: '/auth/signin'
+    },
     callbacks: {
         async signIn({ user }){
             if(!user.email){
