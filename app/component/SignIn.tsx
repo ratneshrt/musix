@@ -1,19 +1,8 @@
 "use client"
 
-import { signIn, useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { signIn } from "next-auth/react"
 
 export const SignIn = () => {
-
-    const {data: session, status} = useSession()
-    const router = useRouter();
-
-    useEffect(() => {
-        if(status === 'authenticated'){
-            router.push('/')
-        }
-    }, [session, status, router])
 
     const handleSignIn = () => {
         signIn('google', { callbackUrl: '/' })
@@ -21,11 +10,11 @@ export const SignIn = () => {
 
     return (
         <>
-            <div className="bg-black h-screen overflow-hidden flex lg:flex-col justify-center px-10">
+            <div className="bg-black h-screen overflow-hidden flex lg:flex-col justify-center ">
                 <div className="flex justify-center">
                     <div className="px-10">
                         <div className="py-3">
-                            <div className="font-extrabold text-white text-5xl pb-9">
+                            <div className="font-extrabold text-white lg:text-5xl text-4xl pb-9">
                             The night is darkest just before the dawn. And I promise you, the dawn is coming.
                             </div>
                             <div className="font-bold text-white text-3xl mt-6 pb-2">

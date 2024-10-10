@@ -10,7 +10,7 @@ export default function Signin(){
                 </div>
                 <div>
                     <div className="flex bg-black lg:hidden pb-16 pt-4">
-                        <img src="https://i.postimg.cc/d1kxY86q/logo-2.png" className="max-h-28 px-10"></img>
+                        <img src="https://i.postimg.cc/d1kxY86q/logo-2.png" className="max-h-28 px-4"></img>
                     </div>
                         <SignIn />
                 </div>
