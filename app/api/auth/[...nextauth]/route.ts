@@ -1,6 +1,7 @@
 import GoogleProvider from "next-auth/providers/google";
 import NextAuth from "next-auth/next";
 import { prismaClient } from "@/app/lib/db";
+import { Provider } from "@prisma/client";
 
 const handler = NextAuth({
     providers: [
@@ -31,7 +32,8 @@ const handler = NextAuth({
                     data: {
                         email: user.email,
                         name: user.name ?? "",
-                        provider: "Google"
+                        userImage: user.image ?? "",
+                        provider: Provider.Google
                     }
                 })
                 return true
