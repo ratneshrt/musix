@@ -23,8 +23,8 @@ export default async function Dashboard() {
   const lateNight = [`Late vibes, ${firstName}! Keep it playing!`, `Still jamming, ${firstName}? Let’s go!`, `Night owl mode: playlist on!`, `After-hours beats, ${firstName}!`, `Party till dawn, ${firstName}?`]
 
   const randomMorning = morning[Math.floor(Math.random() * morning.length)]
-  const randomAfternoon = morning[Math.floor(Math.random() * afternoon.length)]
-  const randomNight = morning[Math.floor(Math.random() * lateNight.length)]
+  const randomAfternoon = afternoon[Math.floor(Math.random() * afternoon.length)]
+  const randomNight = lateNight[Math.floor(Math.random() * lateNight.length)]
   
   if(!creatorId){
     return (
