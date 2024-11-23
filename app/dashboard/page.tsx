@@ -2,8 +2,7 @@ import { getServerSession } from "next-auth";
 import { AppBar } from "../component/AppBar";
 import { AuthGuard } from "../component/AuthGuard";
 import StreamView from "../component/StreamView";
-import { prismaClient } from "../lib/db";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "../lib/auth";
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);
