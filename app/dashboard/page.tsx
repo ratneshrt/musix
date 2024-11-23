@@ -3,17 +3,13 @@ import { AppBar } from "../component/AppBar";
 import { AuthGuard } from "../component/AuthGuard";
 import StreamView from "../component/StreamView";
 import { prismaClient } from "../lib/db";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 export default async function Dashboard() {
-  const session = await getServerSession();
-  const details = await prismaClient.user.findFirst({
-    where: {
-      email: session?.user?.email ?? ""
-    }
-  })
+  const session = await getServerSession(authOptions);
 
   const image = session?.user?.image ?? ""
-  const creatorId = details?.id
+  const creatorId = session?.user.id
   const date = new Date()
   const hour = date.getHours()
   const name = session?.user?.name ?? ""

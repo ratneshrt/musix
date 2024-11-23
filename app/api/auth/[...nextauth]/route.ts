@@ -2,8 +2,9 @@ import GoogleProvider from "next-auth/providers/google";
 import NextAuth from "next-auth/next";
 import { prismaClient } from "@/app/lib/db";
 import { Provider } from "@prisma/client";
+import { NextAuthOptions } from "next-auth";
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = ({
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID || "",
@@ -42,8 +43,22 @@ const handler = NextAuth({
                 return false
             }
         },
+        
+        async session({ session }){
+            if(session.user){
+                const existingUser = await prismaClient.user.findFirst({
+                    where: {
+                        email: session.user.email || ""
+                    }
+                })
+                session.user.id = existingUser?.id || ""
+            }
+            return session
+        }
     }
 })
 
-export { handler as GET, handler as POST }
 
+const handler = NextAuth(authOptions)
+
+export { handler as GET, handler as POST }
